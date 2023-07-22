@@ -1,5 +1,6 @@
 package DebugExercise;
 
+
 /**
  * Exercise to showcase the step over button.
  * Code adapted from https://stackoverflow.com/questions/4895173/bitwise-multiply-and-add-in-java and https://stackoverflow.com/questions/1533131/what-useful-bitwise-operator-code-tricks-should-a-developer-know-about
@@ -7,32 +8,19 @@ package DebugExercise;
 public class DebugExercise2 {
     /** Returns the max of a and b. Do not step into this function. */
     public static int max(int a, int b) {
-        int w = (b - a) >> 31;
+        if (a >= b) {
+            return a;
+        };
         /* If you're stepping into this function, click the
            step out button because you're not going to learn anything. */
-        int z = ~(b - a) >> 31;
-
-        int max = b & w | a & z;
-        return max;
+        return b;
     }
 
 
     /** Returns the sum of a and b. Do not step into this function. */
     public static int add(int a, int b) {
-        int x = a, y = b;
-        /* If you're stepping into this function, click the
-           step out button because you're not going to learn anything. */
-        int xor, and, temp;
-        and = x & y;
-        xor = x ^ y;
-
-        while (and != 0) {
-            and <<= 1;
-            temp = xor ^ and;
-            and &= xor;
-            xor = temp;
-        }
-        return xor;
+        int sum = a + b;
+        return sum;
     }
 
     /** Returns a new array where entry i is the max of
@@ -58,7 +46,7 @@ public class DebugExercise2 {
         int i = 0;
         int sum = 0;
         while (i < x.length) {
-            sum = sum + add(sum, x[i]);
+            sum = add(sum, x[i]);
             i = i + 1;
         }
         return sum;
