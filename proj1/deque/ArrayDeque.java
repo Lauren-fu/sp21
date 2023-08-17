@@ -156,7 +156,11 @@ public class ArrayDeque<T> {
 
     /** gets the item ar the given index */
     public T get(int index) {
-        return array[index];
+        if(index < 0 || index > size - 1) {
+            return null;
+        }
+        int itemIndex = nextFirst + 1 + index;
+        return array[itemIndex];
     }
 
 
