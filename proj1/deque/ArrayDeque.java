@@ -170,7 +170,7 @@ public class ArrayDeque<T> {
 
     /** gets the item ar the given index */
     public T get(int index) {
-        if (index < 0 || index > length - 1) {
+        if (index < 0 || index > size - 1) {
             return null;
         }
         else if(nextFirst == length - 1) {
