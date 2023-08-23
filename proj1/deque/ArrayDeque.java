@@ -152,7 +152,7 @@ public class ArrayDeque<T> {
         }
         size -= 1;
         T last;
-        if(nextLast == 0) {
+        if (nextLast == 0) {
            last = array[length - 1];
             array[length - 1] = null;
             nextFirst = length - 1;
@@ -162,7 +162,7 @@ public class ArrayDeque<T> {
             array[nextLast - 1] = null;
             nextLast -= 1;
         }
-        if(size > 8) {
+        if (size > 8) {
             resize(size * 2);
         }
         return last;
@@ -170,9 +170,17 @@ public class ArrayDeque<T> {
 
     /** gets the item ar the given index */
     public T get(int index) {
-        if(index < 0 || index > length - 1) {
+        if (index < 0 || index > length - 1) {
             return null;
         }
-        return array[index];
+        else if(nextFirst == length - 1) {
+            return array[index];
+        }
+        else if (nextFirst + 1 + index < length - 1) {
+            return array[nextFirst + 1 + index];
+        }
+        else {
+            return array[index - length + 1 + nextFirst];
+        }
     }
 }

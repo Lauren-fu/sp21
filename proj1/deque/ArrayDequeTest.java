@@ -13,16 +13,9 @@ public class ArrayDequeTest {
 
         ad.addLast("a");
         ad.addLast("b");
-        ad.addLast("c");
-        ad.addLast("d");
-        ad.addLast("e");
-        ad.addLast("f");
-        ad.addLast("g");
-        ad.addLast("h");
-        ad.addLast("i");
-        ad.addLast("j");
-        ad.addLast("k");
-        ad.removeFirst();
-        ad.removeLast();
+        ad.addFirst("c");
+        ad.addFirst("d");
+        ad.addFirst("e");
+        String a = ad.get(3);
     }
 }
