@@ -26,19 +26,19 @@ public class TimeSLList {
         AList<Integer> Ns = new AList<> ();
         AList<Double> times = new AList<> ();
         AList<Integer> opCounts = new AList<> ();
-        for(int N = 1000; N <= 64000; N = N * 2) {
-            timeAListConstructionHelper(N, Ns, times, opCounts);
+        SLList<Integer> lst = new SLList<> ();
+        for(int i = 1; i <= 12800; i += 1) {
+            lst.addLast(1);
+        }
+        for(int N = 1000; N <= 128000; N = N * 2) {
+            timeAListConstructionHelper(N, Ns, times, opCounts, lst);
         }
         printTimingTable(Ns, times, opCounts);
     }
 
-    private static void timeAListConstructionHelper(int N, AList<Integer> Ns, AList<Double> times, AList<Integer> opCounts) {
+    private static void timeAListConstructionHelper(int N, AList<Integer> Ns, AList<Double> times, AList<Integer> opCounts, SLList<Integer> lst) {
         Ns.addLast(N);
         opCounts.addLast(1000);
-        SLList<Integer> lst = new SLList<> ();
-        for(int i = 1; i <= N; N += 1) {
-            lst.addLast(1);
-        }
         Stopwatch sw = new Stopwatch();
         for(int i = 1; i <= 1000; i += 1) {
             lst.getLast();
