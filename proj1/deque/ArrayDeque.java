@@ -176,7 +176,7 @@ public class ArrayDeque<T> {
         else if(nextFirst == length - 1) {
             return array[index];
         }
-        else if (nextFirst + 1 + index < length - 1) {
+        else if (nextFirst + 1 + index <= length - 1) {
             return array[nextFirst + 1 + index];
         }
         else {
