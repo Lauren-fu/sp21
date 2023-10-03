@@ -1,9 +1,10 @@
 
 package deque;
+import java.util.Iterator;
 
 import static org.junit.Assert.assertTrue;
 
-public class ArrayDeque<T> {
+public class ArrayDeque<T> implements Iterable<T>, Deque<T> {
     private T[] array;
     private int size;
     private int nextFirst;
@@ -99,12 +100,6 @@ public class ArrayDeque<T> {
     }
 
     /** returns true if deque is empty */
-    public boolean isEmpty() {
-        if (size == 0) {
-            return true;
-        }
-        return false;
-    }
 
     /** return the number if items in the deque */
     public int size(){
@@ -114,7 +109,7 @@ public class ArrayDeque<T> {
     /** prints the items in the deque from first to last. */
     public void printDeque() {
         for (int index = 0; index < size; index += 1){
-            System.out.print(array[index] + "");
+            System.out.print(get(index) + " ");
         }
         System.out.println(" ");
     }
@@ -181,6 +176,81 @@ public class ArrayDeque<T> {
         }
         else {
             return array[index - length + 1 + nextFirst];
+        }
+    }
+
+    /* return an iterator
+     */
+    public Iterator<T> iterator() {
+        return new itemIterator();
+    }
+
+    private class itemIterator implements Iterator<T> {
+        public int position;
+
+        public itemIterator() {
+            position = 0;
+        }
+
+        public boolean hasNext() {
+            return position < size;
+        }
+
+        public T next() {
+            T value = get(position);
+            position += 1;
+            return value;
+        }
+    }
+
+    /* returns whether the parameter o is equal to the deque
+     */
+    public boolean equals(Object o) {
+        if(o == this) {
+            return true;
+        }
+        if(o == null) {
+            return false;
+        }
+        if(o.getClass() != this.getClass()){
+            return false;
+        }
+        ArrayDeque<T> other = (ArrayDeque<T>) o;
+        if(other.size() != size) {
+            return false;
+        }
+        for(int i = 0; i < size; i ++) {
+            if(!other.get(i).equals(this.get(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static void main(String[] args) {
+        ArrayDeque<Integer> lld = new ArrayDeque<>();
+        System.out.println(lld.isEmpty());
+        lld.addFirst(1);
+        lld.addFirst(5);
+        lld.addFirst(11);
+        lld.addFirst(12);
+        lld.addLast(13);
+        lld.addFirst(104);
+        lld.addFirst(105);
+        lld.addFirst(106);
+        lld.addFirst(100);
+        System.out.println(lld.isEmpty());
+        lld.printDeque();
+        System.out.println(lld.size());
+        System.out.println(lld.get(2));
+        System.out.println(lld.get(5));
+        System.out.println(lld.get(10));
+        lld.removeLast();
+        lld.removeFirst();
+        lld.printDeque();
+
+        for(int i : lld) {
+            System.out.println(i);
         }
     }
 }
