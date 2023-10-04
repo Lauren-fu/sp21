@@ -2,7 +2,6 @@
 package deque;
 import java.util.Iterator;
 
-import static org.junit.Assert.assertTrue;
 
 public class ArrayDeque<T> implements Iterable<T>, Deque<T> {
     private T[] array;
@@ -11,24 +10,13 @@ public class ArrayDeque<T> implements Iterable<T>, Deque<T> {
     private int nextLast;
     private int length = 8;
 
+
     /** creating an empty array deque */
     public ArrayDeque() {
-        array = (T[]) new Object[length];
+        array = (T[]) new Object[8];
         size = 0;
-        nextFirst = 0;
-        nextLast = 1;
-    }
-
-    /** create a deep copy of other */
-    public ArrayDeque(ArrayDeque other) {
-        length = other.size();
-        array = (T[]) new Object[length];
-        size = 0;
-        nextFirst = 0;
-        nextLast = 1;
-        for(int i = 0; i < length; i += 1) {
-            addLast((T)other.get(i));
-        }
+        nextFirst = 4;
+        nextLast = 5;
     }
 
     /** invariants:
@@ -44,9 +32,8 @@ public class ArrayDeque<T> implements Iterable<T>, Deque<T> {
      */
 
     /** Resizes the underlying array to the target capacity. */
-    public void resize (int l) {
-        int lgh = l;
-        T[] a = (T[]) new Object[lgh];
+    private void resize (int l) {
+        T[] a = (T[]) new Object[l];
         if (nextFirst == length - 1)  {
             System.arraycopy(array, 0, a, 0, size);
         }
@@ -122,6 +109,7 @@ public class ArrayDeque<T> implements Iterable<T>, Deque<T> {
             return null;
         }
         size -= 1;
+
         T first;
         if (nextFirst == length - 1) {
            first = array[0];
@@ -135,6 +123,7 @@ public class ArrayDeque<T> implements Iterable<T>, Deque<T> {
         if(size > 8) {
             resize(size * 2);
         }
+
         return first;
     }
 
@@ -147,7 +136,7 @@ public class ArrayDeque<T> implements Iterable<T>, Deque<T> {
         }
         size -= 1;
         T last;
-        if (nextLast == 0) {
+        if(nextLast == 0) {
            last = array[length - 1];
             array[length - 1] = null;
             nextFirst = length - 1;
@@ -212,10 +201,10 @@ public class ArrayDeque<T> implements Iterable<T>, Deque<T> {
         if(o == null) {
             return false;
         }
-        if(o.getClass() != this.getClass()){
+        if(! (o instanceof Deque)) {
             return false;
         }
-        ArrayDeque<T> other = (ArrayDeque<T>) o;
+        Deque<T> other = (Deque<T>) o;
         if(other.size() != size) {
             return false;
         }
@@ -225,32 +214,5 @@ public class ArrayDeque<T> implements Iterable<T>, Deque<T> {
             }
         }
         return true;
-    }
-
-    public static void main(String[] args) {
-        ArrayDeque<Integer> lld = new ArrayDeque<>();
-        System.out.println(lld.isEmpty());
-        lld.addFirst(1);
-        lld.addFirst(5);
-        lld.addFirst(11);
-        lld.addFirst(12);
-        lld.addLast(13);
-        lld.addFirst(104);
-        lld.addFirst(105);
-        lld.addFirst(106);
-        lld.addFirst(100);
-        System.out.println(lld.isEmpty());
-        lld.printDeque();
-        System.out.println(lld.size());
-        System.out.println(lld.get(2));
-        System.out.println(lld.get(5));
-        System.out.println(lld.get(10));
-        lld.removeLast();
-        lld.removeFirst();
-        lld.printDeque();
-
-        for(int i : lld) {
-            System.out.println(i);
-        }
     }
 }

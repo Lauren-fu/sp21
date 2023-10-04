@@ -30,17 +30,6 @@ public class LinkedListDeque<T> implements Iterable<T>, Deque<T> {
         sentinel.next = sentinel;
     }
 
-    /** creates a deep copy of other */
-    public LinkedListDeque(LinkedListDeque other) {
-        size = 0;
-        sentinel = new Node(null, null, null);
-        sentinel.prev = sentinel;
-        sentinel.next = sentinel;
-        for(int i = 0; i < other.size(); i += 1) {
-            addLast((T)other.get(i));
-        }
-    }
-
     /*Invariants:
         1. the first item is sentinel.next
         2. the last item is sentinel.prev
@@ -138,7 +127,7 @@ public class LinkedListDeque<T> implements Iterable<T>, Deque<T> {
         return p.item;
     }
 
-    public T getRecursiveHelper (Node sentinel, int index) {
+    private T getRecursiveHelper (Node sentinel, int index) {
         if (index >= size || size == 0) {
             return null;
         }
@@ -185,10 +174,10 @@ public class LinkedListDeque<T> implements Iterable<T>, Deque<T> {
         if(o == null) {
             return false;
         }
-        if(o.getClass() != this.getClass()) {
+        if(! (o instanceof Deque)) {
             return false;
         }
-        LinkedListDeque<T> other = (LinkedListDeque<T>) o;
+        Deque<T> other = (Deque<T>) o;
         if (other.size() != size) {
             return false;
         }
@@ -200,32 +189,6 @@ public class LinkedListDeque<T> implements Iterable<T>, Deque<T> {
         return true;
     }
 
-    public static void main(String[] args) {
-        LinkedListDeque<Integer> lld = new LinkedListDeque<>();
-        System.out.println(lld.isEmpty());
-        lld.addFirst(1);
-        lld.addFirst(5);
-        lld.addFirst(10);
-        System.out.println(lld.isEmpty());
-
-        System.out.println(lld.size());
-        System.out.println(lld.get(2));
-        System.out.println(lld.get(5));
-        lld.printDeque();
-
-        for(int i : lld) {
-            System.out.println(i);
-        }
-
-        LinkedListDeque<Integer> lld2 = new LinkedListDeque<>();
-        lld2.addFirst(1);
-        lld2.addFirst(5);
-        lld2.addFirst(10);
-
-        System.out.println(lld.equals(lld2));
-        System.out.println(lld.equals(4));
-        System.out.println(lld.equals(null));
-    }
 }
 
 

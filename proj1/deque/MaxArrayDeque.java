@@ -5,7 +5,7 @@ public class MaxArrayDeque<T> extends ArrayDeque<T> {
     /* creates a MaxArrayDeque with the given Comparator
      */
 
-    public Comparator<T> comp;
+    private Comparator<T> comp;
 
     public MaxArrayDeque(Comparator<T> c) {
         comp = c;
@@ -33,20 +33,4 @@ public class MaxArrayDeque<T> extends ArrayDeque<T> {
         T value = max();
         return value;
     }
-
-    public static void main(String[] args) {
-        cmp cmptor = new cmp();
-        MaxArrayDeque<Integer> lld = new MaxArrayDeque<>(cmptor);
-        lld.addFirst(1);
-        lld.addFirst(5);
-        lld.addFirst(11);
-        lld.addFirst(12);
-        lld.addLast(13);
-        lld.addFirst(104);
-        lld.addFirst(105);
-        lld.addFirst(106);
-        lld.addFirst(100);
-        System.out.println(lld.max());
-    }
-
 }
